@@ -17,10 +17,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    productFlavors {
+
+        inmemory {
+            applicationId 'socialapp.com.socialapp.immemory'
+        }
+
+        Live {
+            applicationId 'socialapp.com'
+        }
+
+    }
+
 }
+
+
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.soundcloud.android:android-crop:0.9.10@aar'
+    compile 'com.squareup:otto:1.3.8'
 }
