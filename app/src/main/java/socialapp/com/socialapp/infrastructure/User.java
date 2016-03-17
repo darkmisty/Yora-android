@@ -6,20 +6,27 @@ package socialapp.com.socialapp.infrastructure;
 public class User {
 
 
-    private String id;
+    private int id;
     private String email;
+    private String username;
     private boolean hasPassword;
     private String avatarUrl;
     private String displayName;
     private boolean isLoggedIn;
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
