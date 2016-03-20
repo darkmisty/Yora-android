@@ -13,16 +13,14 @@ import com.squareup.otto.Bus;
 
 import socialapp.com.socialapp.AppViews.NavDrawer;
 import socialapp.com.socialapp.R;
-import socialapp.com.socialapp.infrastructure.SocialApplication;
+import socialapp.com.socialapp.infrastructure.MyApplication;
 
 
-/**
- * Created by SAMAR on 2/18/2016.
- */
+
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected SocialApplication application;
+    protected MyApplication application;
     protected Bus bus;
 
     protected Toolbar toolbar;
@@ -34,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        application = (SocialApplication) getApplication();
+        application = (MyApplication) getApplication();
 
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -54,6 +52,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bus.unregister(this);
+
+        if (navDrawer != null)
+            navDrawer.destroy();
+
     }
 
     @Override
@@ -92,6 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationRepeat(Animator animation) {
 
+
                     }
                 })
                 .setDuration(300)
@@ -123,7 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public SocialApplication getSocialAppApplication() {
+    public MyApplication getMyApplication() {
         return application;
     }
 

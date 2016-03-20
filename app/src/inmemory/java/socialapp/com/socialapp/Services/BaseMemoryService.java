@@ -6,7 +6,7 @@ import com.squareup.otto.Bus;
 
 import java.util.Random;
 
-import socialapp.com.socialapp.infrastructure.SocialApplication;
+import socialapp.com.socialapp.infrastructure.MyApplication;
 
 /**
  * Created by SAMAR on 3/7/2016.
@@ -14,11 +14,11 @@ import socialapp.com.socialapp.infrastructure.SocialApplication;
 public abstract class BaseMemoryService {
 
     protected final Bus bus;
-    protected SocialApplication application;
+    protected MyApplication application;
     protected Handler handler;
     protected Random random;
 
-    protected BaseMemoryService(SocialApplication application) {
+    protected BaseMemoryService(MyApplication application) {
         this.application = application;
         bus = application.getBus();
         handler = new Handler();

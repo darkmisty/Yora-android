@@ -5,18 +5,18 @@ import android.os.Bundle;
 
 import com.squareup.otto.Bus;
 
-import socialapp.com.socialapp.infrastructure.SocialApplication;
+import socialapp.com.socialapp.infrastructure.MyApplication;
 
 
 public class BaseDialogFragment extends DialogFragment {
 
-    protected SocialApplication application;
+    protected MyApplication application;
     protected Bus bus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        application = (SocialApplication) getActivity().getApplication();
+        application = (MyApplication) getActivity().getApplication();
 
         bus = application.getBus();
         bus.register(this);

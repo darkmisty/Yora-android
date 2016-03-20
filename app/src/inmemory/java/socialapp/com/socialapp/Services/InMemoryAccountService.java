@@ -4,13 +4,13 @@ package socialapp.com.socialapp.Services;
 import com.squareup.otto.Subscribe;
 
 import socialapp.com.socialapp.infrastructure.Auth;
-import socialapp.com.socialapp.infrastructure.SocialApplication;
+import socialapp.com.socialapp.infrastructure.MyApplication;
 import socialapp.com.socialapp.infrastructure.User;
 
 public class InMemoryAccountService extends BaseMemoryService {
 
 
-    public InMemoryAccountService(SocialApplication application) {
+    public InMemoryAccountService(MyApplication application) {
         super(application);
     }
 
@@ -74,19 +74,23 @@ public class InMemoryAccountService extends BaseMemoryService {
     }
 
     @Subscribe
-    public void loginWithUserName(Account.LoginWithUsernameRequest request) {
+    public void loginWithUserName(final Account.LoginWithUsernameRequest request) {
 
         invokeDelayed(new Runnable() {
             @Override
             public void run() {
 
                 Account.LoginWithUsernameResponse response = new Account.LoginWithUsernameResponse();
+
+                if (request.userName.equals("username-test"))
+                    response.setPropertyError("username", "invalid username or password");
+
                 loginUser(response);
                 bus.post(response);
 
 
             }
-        }, 1000, 2000);
+        }, 3000, 4000);
     }
 
     @Subscribe

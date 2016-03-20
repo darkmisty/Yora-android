@@ -47,9 +47,14 @@ public class NavDrawer {
             }
         });
 
+        activity.getMyApplication().getBus().register(this);
 
     }
 
+
+    public void destroy() {
+        activity.getMyApplication().getBus().unregister(this);
+    }
 
     /**
      * Adding items in Navigation Drawer

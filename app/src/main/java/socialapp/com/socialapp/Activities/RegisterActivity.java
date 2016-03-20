@@ -6,7 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.squareup.otto.Subscribe;
+
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.Services.Account;
 
 /**
  * Created by samar_000 on 2/22/2016.
@@ -16,6 +19,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     EditText passwordTxt, emailTxt, userNameTxt;
     Button registerBtn;
     View progressBar;
+    private String defaultRegisterButtonText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,15 +35,60 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         registerBtn.setOnClickListener(this);
         progressBar.setVisibility(View.GONE);
+        defaultRegisterButtonText = registerBtn.getText().toString();
 
     }
 
     @Override
     public void onClick(View v) {
         if (v == registerBtn) {
-            application.getAuth().getUser().setLoggedIn(true);
+
+            progressBar.setVisibility(View.VISIBLE);
+            registerBtn.setText("Loading...");
+            registerBtn.setEnabled(false);
+            userNameTxt.setEnabled(false);
+            emailTxt.setEnabled(false);
+            passwordTxt.setEnabled(false);
+
+            bus.post(new Account.RegisterRequest(
+                    userNameTxt.getText().toString(),
+                    emailTxt.getText().toString(),
+                    passwordTxt.getText().toString()));
+        }
+    }
+
+
+    @Subscribe
+    public void registerResponse(Account.RegisterResponse response) {
+        onUserResponse(response);
+    }
+
+
+    @Subscribe
+    public void registerResponse(Account.RegisterWithExternalTokenResponse response) {
+        onUserResponse(response);
+    }
+
+
+    private void onUserResponse(Account.UserResponse response) {
+        if (response.didSucceed()) {
             setResult(RESULT_OK);
             finish();
+            return;
         }
+
+        response.showErrorToast(this);
+        userNameTxt.setError(response.getPropertyError("username"));
+        emailTxt.setError(response.getPropertyError("email"));
+        passwordTxt.setError(response.getPropertyError("password"));
+
+        registerBtn.setEnabled(true);
+        userNameTxt.setEnabled(true);
+        emailTxt.setEnabled(true);
+        passwordTxt.setEnabled(true);
+
+
+        progressBar.setVisibility(View.GONE);
+        registerBtn.setText(defaultRegisterButtonText);
     }
 }

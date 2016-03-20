@@ -7,12 +7,12 @@ import com.squareup.otto.Bus;
 import socialapp.com.socialapp.Services.Module;
 
 
-public class SocialApplication extends Application {
+public class MyApplication extends Application {
 
     private Auth auth;
     private Bus bus;
 
-    public SocialApplication() {
+    public MyApplication() {
         bus = new Bus();
     }
 

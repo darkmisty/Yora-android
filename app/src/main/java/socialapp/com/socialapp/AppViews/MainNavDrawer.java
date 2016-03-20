@@ -4,12 +4,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.otto.Subscribe;
+
 import socialapp.com.socialapp.Activities.BaseActivity;
 import socialapp.com.socialapp.Activities.ContactsActivity;
 import socialapp.com.socialapp.Activities.MainActivity;
 import socialapp.com.socialapp.Activities.ProfileActivity;
 import socialapp.com.socialapp.Activities.SendMessagesActivity;
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.Services.Account;
 import socialapp.com.socialapp.Utilities.HelperClass;
 import socialapp.com.socialapp.infrastructure.User;
 
@@ -43,11 +46,19 @@ public class MainNavDrawer extends NavDrawer {
         displayNameText = (TextView) navDrawerView.findViewById(R.id.include_main_nav_drawer_displayName);
         avatarImage = (ImageView) navDrawerView.findViewById(R.id.include_main_nav_drawer_avatar);
 
-        User loggedInUser = activity.getSocialAppApplication().getAuth().getUser();
+        User loggedInUser = activity.getMyApplication().getAuth().getUser();
         displayNameText.setText(loggedInUser.getDisplayName());
 
         //Todo : change avatar image to avatar uri from loggedInUser
 
+    }
+
+    @Subscribe
+    public void userDetialChangeEvent(Account.UserDetailUpdatesEvent event) {
+
+
+        //Todo: Update Avatar Url
+        displayNameText.setText(event.user.getDisplayName());
     }
 
 
