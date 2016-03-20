@@ -144,7 +144,7 @@ public class InMemoryAccountService extends BaseMemoryService {
                 loginUser(response);
                 bus.post(response);
             }
-        }, 1000, 2000);
+        }, 2000, 3000);
 
     }
 

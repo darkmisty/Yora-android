@@ -24,7 +24,7 @@ public class MainNavDrawer extends NavDrawer {
     HelperClass hc;
 
 
-    public MainNavDrawer(BaseActivity activity) {
+    public MainNavDrawer(final BaseActivity activity) {
         super(activity);
         hc = new HelperClass(activity);
 
@@ -37,7 +37,7 @@ public class MainNavDrawer extends NavDrawer {
             @Override
             public void onClick(View v) {
                 super.onClick(v);
-                hc.tmsg("You are logged out");
+                activity.getMyApplication().getAuth().logout();
 
             }
         });

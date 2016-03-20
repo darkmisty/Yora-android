@@ -3,10 +3,9 @@ package socialapp.com.socialapp.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-/**
- * Created by SAMAR on 2/18/2016.
- */
+
 public abstract class BaseAuthenticatedActivity extends BaseActivity {
 
     @Override
@@ -15,7 +14,15 @@ public abstract class BaseAuthenticatedActivity extends BaseActivity {
 
         if (!application.getAuth().getUser().isLoggedIn()) {
 
-            startActivity(new Intent(this, LoginActivity.class));
+            if (application.getAuth().hasAuthToken()) {
+                Intent intent = new Intent(this, AuthenticationActivity.class);
+                intent.putExtra(AuthenticationActivity.EXTRA_RETURN_TO_ACTIVITY, getClass().getName());
+                Log.e("Current Activity", getClass().getName());
+                startActivity(intent);
+            } else {
+                startActivity(new Intent(this, LoginActivity.class));
+            }
+
             finish();
             return;
         }
