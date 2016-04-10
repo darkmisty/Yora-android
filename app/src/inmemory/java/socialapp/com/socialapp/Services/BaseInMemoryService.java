@@ -11,14 +11,14 @@ import socialapp.com.socialapp.infrastructure.MyApplication;
 /**
  * Created by SAMAR on 3/7/2016.
  */
-public abstract class BaseMemoryService {
+public abstract class BaseInMemoryService {
 
     protected final Bus bus;
     protected MyApplication application;
     protected Handler handler;
     protected Random random;
 
-    protected BaseMemoryService(MyApplication application) {
+    protected BaseInMemoryService(MyApplication application) {
         this.application = application;
         bus = application.getBus();
         handler = new Handler();

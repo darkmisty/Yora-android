@@ -102,7 +102,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-
     protected void setNavDrawer(NavDrawer drawer) {
         this.navDrawer = drawer;
         this.navDrawer.create();
@@ -125,12 +124,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         return toolbar;
     }
 
-
     public MyApplication getMyApplication() {
         return application;
     }
 
+
     public interface FadeOutListener {
         void onFadeOutEnd();
     }
+
+
 }

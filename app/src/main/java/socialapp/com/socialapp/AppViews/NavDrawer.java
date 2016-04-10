@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import socialapp.com.socialapp.Activities.BaseActivity;
 import socialapp.com.socialapp.R;
 
-/**
- * Created by SAMAR on 2/29/2016.
- */
 public class NavDrawer {
 
     protected BaseActivity activity;

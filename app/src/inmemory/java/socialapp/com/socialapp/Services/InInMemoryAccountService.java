@@ -7,10 +7,10 @@ import socialapp.com.socialapp.infrastructure.Auth;
 import socialapp.com.socialapp.infrastructure.MyApplication;
 import socialapp.com.socialapp.infrastructure.User;
 
-public class InMemoryAccountService extends BaseMemoryService {
+public class InInMemoryAccountService extends BaseInMemoryService {
 
 
-    public InMemoryAccountService(MyApplication application) {
+    public InInMemoryAccountService(MyApplication application) {
         super(application);
     }
 
