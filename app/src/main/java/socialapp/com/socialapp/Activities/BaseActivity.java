@@ -13,9 +13,8 @@ import com.squareup.otto.Bus;
 
 import socialapp.com.socialapp.AppViews.NavDrawer;
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.infrastructure.ActionScheduler;
 import socialapp.com.socialapp.infrastructure.MyApplication;
-
-
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -28,11 +27,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean isTablet;
 
 
+    protected ActionScheduler scheduler;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         application = (MyApplication) getApplication();
+        bus = application.getBus();
+        scheduler = new ActionScheduler(application);
 
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -43,10 +47,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         * */
         isTablet = (metrics.widthPixels / metrics.density) >= 600;
 
-        bus = application.getBus();
         bus.register(this);
     }
 
+
+    public ActionScheduler getScheduler() {
+        return scheduler;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        scheduler.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        scheduler.onPause();
+    }
 
     @Override
     protected void onDestroy() {
