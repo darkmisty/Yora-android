@@ -16,7 +16,6 @@ import socialapp.com.socialapp.infrastructure.Auth;
 public class AuthenticationActivity extends BaseActivity {
 
     public static final String EXTRA_RETURN_TO_ACTIVITY = "extraReturnToActivity";
-    HelperClass hc;
     private Auth auth;
 
     @Override
@@ -27,7 +26,6 @@ public class AuthenticationActivity extends BaseActivity {
         Log.e("Authentication Activity", "LUNCHED");
 
         auth = application.getAuth();
-        hc = new HelperClass(this);
 
         if (!auth.hasAuthToken()) {
 
@@ -46,7 +44,7 @@ public class AuthenticationActivity extends BaseActivity {
 
         if (!response.didSucceed()) {
 
-            hc.tmsg("Please Login again");
+            HelperClass.tmsg(this, "Please Login again");
             auth.setAuthToke(null);
             startActivity(new Intent(this, LoginActivity.class));
             finish();

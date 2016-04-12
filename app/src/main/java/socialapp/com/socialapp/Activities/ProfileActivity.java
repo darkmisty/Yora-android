@@ -42,7 +42,6 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     private static final String BUNDLE_STATE = "BUNDLE_STATE";
     private static boolean isProgressBarVisible;
 
-    HelperClass hc;
     private int currentState;
     private EditText emailText, displayNameText;
     private View changeAvatarButton;
@@ -56,7 +55,6 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     protected void onSocialCreate(Bundle savedState) {
         setContentView(R.layout.activity_profile);
         setNavDrawer(new MainNavDrawer(this));
-        hc = new HelperClass(this);
 
         if (!isTablet) {
 
@@ -180,12 +178,13 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
             //If we take it from the gallery
             if (data != null && (data.getAction() == null || data.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
                 outputFile = data.getData();
-                hc.tmsg("From Internal Storage");
+                HelperClass.tmsg(this, "From Internal Storage");
 
                 //If we take it from camera
             } else {
                 outputFile = tempFileUri;
-                hc.tmsg("From Camera");
+                HelperClass.tmsg(this, "From Camera");
+
             }
 
             //Open sound cloud crop activity

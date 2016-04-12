@@ -8,13 +8,7 @@ import android.widget.Toast;
  */
 public class HelperClass {
 
-    Activity activity;
-
-    public HelperClass(Activity activity) {
-        this.activity = activity;
-    }
-
-    public void tmsg(String msg) {
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+    public static void tmsg(Activity activity, String message) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 }

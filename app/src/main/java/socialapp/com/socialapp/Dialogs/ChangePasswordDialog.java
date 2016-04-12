@@ -6,7 +6,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
 import com.squareup.otto.Subscribe;
+
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
 import socialapp.com.socialapp.Utilities.HelperClass;
@@ -15,13 +17,11 @@ import socialapp.com.socialapp.Utilities.HelperClass;
 public class ChangePasswordDialog extends BaseDialogFragment implements View.OnClickListener {
 
     EditText currentPassword, newPassword, confirmNewPassword;
-    HelperClass hc;
     private Dialog progressDialog;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        hc = new HelperClass(getActivity());
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_change_password, null, false);
 
         currentPassword = (EditText) dialogView.findViewById(R.id.dialog_change_password_currentPassword);
@@ -69,7 +69,7 @@ public class ChangePasswordDialog extends BaseDialogFragment implements View.OnC
         progressDialog.dismiss();
         progressDialog = null;
         if (response.didSucceed()) {
-            hc.tmsg("Password Updated");
+            HelperClass.tmsg(getActivity(), "Password Update");
             dismiss();
             application.getAuth().getUser().setHasPassword(true);
             return;
