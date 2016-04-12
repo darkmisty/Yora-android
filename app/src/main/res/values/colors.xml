@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#314536</color>
     <color name="colorAccent">#0d5f6c</color>
     <color name="list_item_nav_drawer_selected_item_text_color">#6cbe4a</color>
+    <color name="contacts_pending_contact_request">#6d8794</color>
 </resources>

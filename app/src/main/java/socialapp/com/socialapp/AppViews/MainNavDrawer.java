@@ -13,7 +13,6 @@ import socialapp.com.socialapp.Activities.ProfileActivity;
 import socialapp.com.socialapp.Activities.SendMessagesActivity;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
-import socialapp.com.socialapp.Utilities.HelperClass;
 import socialapp.com.socialapp.infrastructure.User;
 
 
@@ -21,12 +20,10 @@ public class MainNavDrawer extends NavDrawer {
 
     private final TextView displayNameText;
     private final ImageView avatarImage;
-    HelperClass hc;
 
 
     public MainNavDrawer(final BaseActivity activity) {
         super(activity);
-        hc = new HelperClass(activity);
 
         addItem(new ActivityNavDrawerItem(MainActivity.class, "Inbox", null, R.drawable.ic_action_unread, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(SendMessagesActivity.class, "Sent Messages", null, R.drawable.ic_action_send_now, R.id.include_main_nav_drawer_topItems));

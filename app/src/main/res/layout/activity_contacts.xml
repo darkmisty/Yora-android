@@ -11,12 +11,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/include_toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contacts" />
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp">
+
+
+            <Spinner
+                android:id="@+id/activity_contacts_spinner"
+                style="@style/Widget.My.Toolbar.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <FrameLayout
+            android:id="@+id/activity_contacts_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
     </LinearLayout>
 

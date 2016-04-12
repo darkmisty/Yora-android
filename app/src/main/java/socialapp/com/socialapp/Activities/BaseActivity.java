@@ -55,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return scheduler;
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
