@@ -11,24 +11,21 @@ import android.view.View;
 
 import com.squareup.otto.Bus;
 
-import socialapp.com.socialapp.AppViews.NavDrawer;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.infrastructure.ActionScheduler;
 import socialapp.com.socialapp.infrastructure.MyApplication;
+import socialapp.com.socialapp.views.NavDrawer;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected MyApplication application;
     protected Bus bus;
-
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
     protected boolean isTablet;
-
-
     protected ActionScheduler scheduler;
-
+    private boolean isRegisterWithBus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         isTablet = (metrics.widthPixels / metrics.density) >= 600;
 
         bus.register(this);
+        isRegisterWithBus = true;
     }
 
 
@@ -73,11 +71,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bus.unregister(this);
+
+        if (isRegisterWithBus) {
+            bus.unregister(this);
+            isRegisterWithBus = false;
+        }
 
         if (navDrawer != null)
             navDrawer.destroy();
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        if (isRegisterWithBus) {
+            bus.unregister(this);
+            isRegisterWithBus = false;
+        }
     }
 
     @Override

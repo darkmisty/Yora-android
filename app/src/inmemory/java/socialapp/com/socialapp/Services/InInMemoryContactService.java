@@ -43,7 +43,7 @@ public class InInMemoryContactService extends BaseInMemoryService {
             response.Contacts.add(createFakeUser(i, true));
         }
 
-        postDelayed(response);
+        postDelayed(response, 5000);
     }
 
 

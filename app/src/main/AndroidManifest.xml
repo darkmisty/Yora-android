@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="socialapp.com.socialapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".infrastructure.MyApplication"
         android:allowBackup="true"
@@ -25,6 +27,8 @@
         <activity android:name=".Activities.SendMessagesActivity" />
         <activity android:name=".Activities.AuthenticationActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".Activities.ContactActivity" />
+        <activity android:name=".Activities.AddContactActivity" />
 
     </application>
 

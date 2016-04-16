@@ -7,43 +7,41 @@
 
 
     <include
-        layout="@layout/include_login_header"
         android:id="@+id/include_id_login"
+        layout="@layout/include_login_header"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
         android:layout_below="@+id/include_id_login"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
         android:gravity="center"
+        android:orientation="vertical"
         >
         
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:background="#dddddd"
+            android:padding="16dp"
             >
 
            <fragment
+               android:name="socialapp.com.socialapp.Fragments.LoginFragment"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:name="socialapp.com.socialapp.Fragments.LoginFragment"
-               tools:layout="@layout/fragment_login"
-               android:id="@+id/activity_login_loginFragment"
-               />
+               tools:layout="@layout/fragment_login" />
 
         </FrameLayout>
 
         <Button
+            android:id="@+id/login_activity_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Register"
-            android:id="@+id/login_activity_register"
             />
 
 
@@ -55,20 +53,20 @@
             >
 
             <Button
+                android:id="@+id/login_activity_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Facebook log in"
                 android:layout_weight="1"
-                android:id="@+id/login_activity_facebook"
+                android:text="Facebook log in"
                 />
 
 
             <Button
+                android:id="@+id/login_activity_google"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Google log in"
                 android:layout_weight="1"
-                android:id="@+id/login_activity_google"
+                android:text="Google log in"
                 />
 
 

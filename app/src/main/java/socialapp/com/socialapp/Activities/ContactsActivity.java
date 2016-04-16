@@ -13,10 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import socialapp.com.socialapp.AppViews.MainNavDrawer;
 import socialapp.com.socialapp.Fragments.ContactsFragment;
 import socialapp.com.socialapp.Fragments.PendingContactRequestsFragment;
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.views.MainNavDrawer;
 
 public class ContactsActivity extends BaseAuthenticatedActivity implements AdapterView.OnItemSelectedListener {
 

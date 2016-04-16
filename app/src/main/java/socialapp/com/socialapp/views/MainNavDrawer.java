@@ -1,4 +1,4 @@
-package socialapp.com.socialapp.AppViews;
+package socialapp.com.socialapp.views;
 
 import android.view.View;
 import android.widget.ImageView;
