@@ -10,4 +10,5 @@
         android:gravity="center"
         android:text="Add Contact Activity" />
 
+
 </LinearLayout>

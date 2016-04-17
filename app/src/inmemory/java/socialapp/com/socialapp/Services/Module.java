@@ -12,5 +12,6 @@ public class Module {
         Log.e("Module", "IN MEMORY Register Method Called");
         new InInMemoryAccountService(application);
         new InInMemoryContactService(application);
+        new InMemoryMessagesServices(application);
     }
 }

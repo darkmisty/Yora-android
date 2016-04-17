@@ -9,6 +9,7 @@ import socialapp.com.socialapp.R;
  */
 public class AddContactActivity extends BaseAuthenticatedActivity {
 
+
     public static final String RESULT_CONTACT = "RESULT_CONTACT";
 
     @Override
