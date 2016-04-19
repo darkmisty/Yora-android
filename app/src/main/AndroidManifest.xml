@@ -28,8 +28,13 @@
         <activity android:name=".Activities.AuthenticationActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".Activities.ContactActivity" />
-        <activity android:name=".Activities.AddContactActivity" />
+
+        <activity
+            android:name=".Activities.AddContactActivity"
+            android:theme="@style/AddContactTheme" />
+
         <activity android:name=".Activities.MessageActivity" />
+        <activity android:name=".Activities.NewMessageActivity" />
 
     </application>
 
