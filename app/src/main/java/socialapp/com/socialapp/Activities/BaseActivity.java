@@ -11,30 +11,29 @@ import android.view.View;
 
 import com.squareup.otto.Bus;
 
-import socialapp.com.socialapp.AppViews.NavDrawer;
 import socialapp.com.socialapp.R;
-import socialapp.com.socialapp.infrastructure.SocialApplication;
+import socialapp.com.socialapp.infrastructure.ActionScheduler;
+import socialapp.com.socialapp.infrastructure.MyApplication;
+import socialapp.com.socialapp.views.NavDrawer;
 
-
-/**
- * Created by SAMAR on 2/18/2016.
- */
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected SocialApplication application;
+    protected MyApplication application;
     protected Bus bus;
-
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
     protected boolean isTablet;
-
+    protected ActionScheduler scheduler;
+    private boolean isRegisterWithBus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        application = (SocialApplication) getApplication();
+        application = (MyApplication) getApplication();
+        bus = application.getBus();
+        scheduler = new ActionScheduler(application);
 
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -45,15 +44,52 @@ public abstract class BaseActivity extends AppCompatActivity {
         * */
         isTablet = (metrics.widthPixels / metrics.density) >= 600;
 
-        bus = application.getBus();
         bus.register(this);
+        isRegisterWithBus = true;
+    }
+
+
+    public ActionScheduler getScheduler() {
+        return scheduler;
     }
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        scheduler.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        scheduler.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        bus.unregister(this);
+
+        if (isRegisterWithBus) {
+            bus.unregister(this);
+            isRegisterWithBus = false;
+        }
+
+        if (navDrawer != null)
+            navDrawer.destroy();
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        if (isRegisterWithBus) {
+            bus.unregister(this);
+            isRegisterWithBus = false;
+        }
     }
 
     @Override
@@ -92,13 +128,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationRepeat(Animator animation) {
 
+
                     }
                 })
                 .setDuration(300)
                 .start();
 
     }
-
 
     protected void setNavDrawer(NavDrawer drawer) {
         this.navDrawer = drawer;
@@ -122,12 +158,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         return toolbar;
     }
 
-
-    public SocialApplication getSocialAppApplication() {
+    public MyApplication getMyApplication() {
         return application;
     }
+
 
     public interface FadeOutListener {
         void onFadeOutEnd();
     }
+
+
 }

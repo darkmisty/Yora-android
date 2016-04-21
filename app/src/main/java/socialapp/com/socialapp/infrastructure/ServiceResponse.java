@@ -4,14 +4,14 @@ package socialapp.com.socialapp.infrastructure;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+
 import java.util.HashMap;
 
-import socialapp.com.socialapp.Utilities.HelperClass;
+import socialapp.com.socialapp.Utilities.util;
 
 public class ServiceResponse {
 
     private static final String TAG = "ServiceResponse";
-    HelperClass hc;
 
     private String operationError;
     private HashMap<String, String> propertyError;
@@ -67,8 +67,7 @@ public class ServiceResponse {
             return;
 
         try {
-            hc = new HelperClass((Activity) context);
-            hc.tmsg(operationError);
+            util.tmsg((Activity) context, operationError);
         } catch (Exception e) {
             Log.e(TAG, "Can't Create error Toast", e);
         }

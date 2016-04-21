@@ -20,7 +20,6 @@
 
 
         <fragment
-            android:id="@+id/activity_login_narrow_loginFragment"
             android:name="socialapp.com.socialapp.Fragments.LoginFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

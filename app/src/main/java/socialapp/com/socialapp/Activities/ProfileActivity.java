@@ -25,12 +25,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import socialapp.com.socialapp.AppViews.MainNavDrawer;
 import socialapp.com.socialapp.Dialogs.ChangePasswordDialog;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
-import socialapp.com.socialapp.Utilities.HelperClass;
+import socialapp.com.socialapp.Utilities.util;
 import socialapp.com.socialapp.infrastructure.User;
+import socialapp.com.socialapp.views.MainNavDrawer;
 
 
 public class ProfileActivity extends BaseAuthenticatedActivity implements View.OnClickListener {
@@ -42,7 +42,6 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     private static final String BUNDLE_STATE = "BUNDLE_STATE";
     private static boolean isProgressBarVisible;
 
-    HelperClass hc;
     private int currentState;
     private EditText emailText, displayNameText;
     private View changeAvatarButton;
@@ -56,7 +55,6 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     protected void onSocialCreate(Bundle savedState) {
         setContentView(R.layout.activity_profile);
         setNavDrawer(new MainNavDrawer(this));
-        hc = new HelperClass(this);
 
         if (!isTablet) {
 
@@ -104,6 +102,13 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
 
         if (isProgressBarVisible)
             setProgressBarVisible(true);
+
+    }
+
+
+    @Subscribe
+    public void userDetialChangeEvent(Account.UserDetailUpdatesEvent event) {
+        getSupportActionBar().setTitle(event.user.getDisplayName());
 
     }
 
@@ -173,12 +178,13 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
             //If we take it from the gallery
             if (data != null && (data.getAction() == null || data.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
                 outputFile = data.getData();
-                hc.tmsg("From Internal Storage");
+                util.tmsg(this, "From Internal Storage");
 
                 //If we take it from camera
             } else {
                 outputFile = tempFileUri;
-                hc.tmsg("From Camera");
+                util.tmsg(this, "From Camera");
+
             }
 
             //Open sound cloud crop activity
