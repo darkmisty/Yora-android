@@ -35,6 +35,7 @@
 
         <activity android:name=".Activities.MessageActivity" />
         <activity android:name=".Activities.NewMessageActivity" />
+        <activity android:name=".Activities.SelectedContactActivity" />
 
     </application>
 

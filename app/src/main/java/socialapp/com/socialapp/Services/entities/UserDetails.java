@@ -73,6 +73,8 @@ public class UserDetails implements Parcelable {
         dest.writeString(displayName);
         dest.writeString(userName);
         dest.writeString(avatarUrl);
+
+
     }
 
 
