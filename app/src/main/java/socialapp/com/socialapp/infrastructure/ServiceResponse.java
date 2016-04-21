@@ -7,7 +7,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-import socialapp.com.socialapp.Utilities.util;
+import socialapp.com.socialapp.Utilities.Utils;
 
 public class ServiceResponse {
 
@@ -67,7 +67,7 @@ public class ServiceResponse {
             return;
 
         try {
-            util.tmsg((Activity) context, operationError);
+            Utils.tmsg((Activity) context, operationError);
         } catch (Exception e) {
             Log.e(TAG, "Can't Create error Toast", e);
         }

@@ -28,7 +28,7 @@ import java.util.List;
 import socialapp.com.socialapp.Dialogs.ChangePasswordDialog;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
-import socialapp.com.socialapp.Utilities.util;
+import socialapp.com.socialapp.Utilities.Utils;
 import socialapp.com.socialapp.infrastructure.User;
 import socialapp.com.socialapp.views.MainNavDrawer;
 
@@ -178,12 +178,12 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
             //If we take it from the gallery
             if (data != null && (data.getAction() == null || data.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
                 outputFile = data.getData();
-                util.tmsg(this, "From Internal Storage");
+                Utils.tmsg(this, "From Internal Storage");
 
                 //If we take it from camera
             } else {
                 outputFile = tempFileUri;
-                util.tmsg(this, "From Camera");
+                Utils.tmsg(this, "From Camera");
 
             }
 
