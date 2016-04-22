@@ -30,7 +30,7 @@ public class SelectedContactActivity extends BaseAuthenticatedActivity implement
 
 
         adapter = new UserDetailAdapter(this);
-        ListView listView = (ListView) findViewById(R.id.activity_add_contact_contactListView);
+        ListView listView = (ListView) findViewById(R.id.activity_select_contact_listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
@@ -85,9 +85,7 @@ public class SelectedContactActivity extends BaseAuthenticatedActivity implement
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         selectUser(adapter.getItem(position));
-
 
     }
 
