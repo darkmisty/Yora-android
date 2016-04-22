@@ -37,7 +37,7 @@ public class SendMessagesActivity extends BaseAuthenticatedActivity implements M
         adapter = new MessagesAdapter(this, this);
         messages = adapter.getMessages();
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_send_messages_messages);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_sent_messages_messages);
         recyclerView.setAdapter(adapter);
 
         if (isTablet) {
