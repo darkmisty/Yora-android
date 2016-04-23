@@ -45,6 +45,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         this.camera = camera;
         this.cameraInfo = cameraInfo;
 
+        if (camera == null)
+            return;
+
         if (!isSurfaceCreated){
             return;
         }
