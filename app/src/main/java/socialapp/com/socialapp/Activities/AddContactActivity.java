@@ -149,7 +149,7 @@ public class AddContactActivity extends BaseAuthenticatedActivity implements Ada
 
         Intent intent = new Intent();
         intent.putExtra(RESULT_CONTACT, selectedUser);
-        setResult(RESULT_OK);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }
