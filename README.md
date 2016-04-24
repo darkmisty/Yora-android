@@ -1,3 +1,3 @@
 # Intoduction 
-This app can send and recieve messages and pictures. 
+Yora Application From 3d Buzz Mobile app Development 3dbuzz 2015 
 
