@@ -1,9 +1,11 @@
 package socialapp.com.socialapp.Activities;
 
 import android.animation.Animator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -17,7 +19,7 @@ import socialapp.com.socialapp.infrastructure.MyApplication;
 import socialapp.com.socialapp.views.NavDrawer;
 
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     protected MyApplication application;
     protected Bus bus;
@@ -25,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected NavDrawer navDrawer;
     protected boolean isTablet;
     protected ActionScheduler scheduler;
+    protected SwipeRefreshLayout swipeRefresh;
     private boolean isRegisterWithBus;
 
     @Override
@@ -98,8 +101,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.include_toolbar);
 
-        if (toolbar != null)
+        if (toolbar != null) {
             setSupportActionBar(toolbar);
+        }
+
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        if (swipeRefresh != null) {
+            swipeRefresh.setOnRefreshListener(this);
+            swipeRefresh.setColorSchemeColors(
+                    Color.parseColor("#ff00ddff"),
+                    Color.parseColor("#ff99cc00"),
+                    Color.parseColor("#ffffbb33"),
+                    Color.parseColor("#ffff4444")
+            );
+        }
 
     }
 
@@ -160,6 +175,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public MyApplication getMyApplication() {
         return application;
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 
 

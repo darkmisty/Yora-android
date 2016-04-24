@@ -6,8 +6,9 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
-import socialapp.com.socialapp.Utilities.util;
+import socialapp.com.socialapp.Utilities.utils;
 
 public class ServiceResponse {
 
@@ -16,6 +17,7 @@ public class ServiceResponse {
     private String operationError;
     private HashMap<String, String> propertyError;
     private boolean isCritical;
+    private TreeMap<String, String> propertyErrorCaseInSensitive;
 
 
     public ServiceResponse() {
@@ -47,12 +49,23 @@ public class ServiceResponse {
         isCritical = critical;
     }
 
+    public void setCriticalError(String criticalError) {
+        isCritical = true;
+        operationError = criticalError;
+    }
+
 
     public void setPropertyError(String property, String error) {
         propertyError.put(property, error);
     }
 
     public String getPropertyError(String property) {
+
+        if (propertyErrorCaseInSensitive == null || propertyErrorCaseInSensitive.size() != propertyError.size()) {
+            propertyErrorCaseInSensitive = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            propertyErrorCaseInSensitive.putAll(propertyError);
+        }
+
         return propertyError.get(property);
     }
 
@@ -67,7 +80,7 @@ public class ServiceResponse {
             return;
 
         try {
-            util.tmsg((Activity) context, operationError);
+            utils.tmsg((Activity) context, operationError);
         } catch (Exception e) {
             Log.e(TAG, "Can't Create error Toast", e);
         }

@@ -3,6 +3,7 @@
     package="socialapp.com.socialapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".infrastructure.MyApplication"
@@ -34,8 +35,13 @@
             android:theme="@style/AddContactTheme" />
 
         <activity android:name=".Activities.MessageActivity" />
-        <activity android:name=".Activities.NewMessageActivity" />
+
+        <activity
+            android:name=".Activities.NewMessageActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".Activities.SelectedContactActivity" />
+        <activity android:name=".Activities.SendMessageActivity" />
 
     </application>
 

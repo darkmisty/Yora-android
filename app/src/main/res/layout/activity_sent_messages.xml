@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_send_messages_messages"
+                android:id="@+id/activity_sent_messages_messages"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical" />

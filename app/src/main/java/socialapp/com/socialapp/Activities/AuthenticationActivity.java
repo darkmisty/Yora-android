@@ -10,7 +10,7 @@ import com.squareup.otto.Subscribe;
 
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
-import socialapp.com.socialapp.Utilities.util;
+import socialapp.com.socialapp.Utilities.utils;
 import socialapp.com.socialapp.infrastructure.Auth;
 
 public class AuthenticationActivity extends BaseActivity {
@@ -44,7 +44,7 @@ public class AuthenticationActivity extends BaseActivity {
 
         if (!response.didSucceed()) {
 
-            util.tmsg(this, "Please Login again");
+            utils.tmsg(this, "Please Login again");
             auth.setAuthToke(null);
             startActivity(new Intent(this, LoginActivity.class));
             finish();

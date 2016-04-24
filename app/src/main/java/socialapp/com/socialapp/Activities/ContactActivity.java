@@ -31,6 +31,8 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
     public static final String EXTRA_USER_DETAILS = "EXTRA_USER_DETAILS";
     private static final int RESULT_USER_REMOVED = 101;
 
+    private static final int REQUEST_SEND_MESSAGE = 1;
+
 
     private UserDetails userDetails;
     private MessagesAdapter adapter;
@@ -91,6 +93,8 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
         scheduler.invokeOnResume(Messages.SearchMessagesResponse.class, new Runnable() {
             @Override
             public void run() {
+                progressFrame.setVisibility(View.GONE);
+
                 if (!response.didSucceed()) {
                     response.showErrorToast(ContactActivity.this);
                     return;
@@ -103,7 +107,6 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
                 messages.addAll(response.Message);
                 adapter.notifyItemRangeInserted(0, messages.size());
 
-                progressFrame.setVisibility(View.GONE);
 
             }
         });
@@ -148,7 +151,7 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
         if (item.getItemId() == R.id.activity_contact_menu_new_message) {
             Intent intent = new Intent(this, NewMessageActivity.class);
             intent.putExtra(NewMessageActivity.EXTRA_CONTACT, userDetails);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_SEND_MESSAGE);
             return true;
         }
 
@@ -169,5 +172,13 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
         }
 
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_OK && requestCode == REQUEST_SEND_MESSAGE) {
+            progressFrame.setVisibility(View.VISIBLE);
+            bus.post(new Messages.SearchMessagesRequest(userDetails.getId(), true, true));
+        }
     }
 }

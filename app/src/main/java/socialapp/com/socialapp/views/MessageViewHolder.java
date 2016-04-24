@@ -20,6 +20,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     private ImageView avatar;
     private TextView displayName, createdAt, sentReceived;
     private CardView cardView;
+    private View backgroundView;
 
     public MessageViewHolder(View v) {
         super(v);
@@ -28,6 +29,12 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         displayName = (TextView) v.findViewById(R.id.list_item_message_displayName);
         createdAt = (TextView) v.findViewById(R.id.list_item_message_createdAt);
         sentReceived = (TextView) v.findViewById(R.id.list_item_message_sendReceived);
+        backgroundView = v.findViewById(R.id.list_item_message_background);
+    }
+
+
+    public View getBackgroundView() {
+        return backgroundView;
     }
 
     public void populate(Context context, Message message) {

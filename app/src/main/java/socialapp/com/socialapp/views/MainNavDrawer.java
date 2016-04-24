@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import socialapp.com.socialapp.Activities.BaseActivity;
 import socialapp.com.socialapp.Activities.ContactsActivity;
@@ -46,15 +47,15 @@ public class MainNavDrawer extends NavDrawer {
         User loggedInUser = activity.getMyApplication().getAuth().getUser();
         displayNameText.setText(loggedInUser.getDisplayName());
 
-        //Todo : change avatar image to avatar uri from loggedInUser
+        Picasso.with(activity).load(loggedInUser.getAvatarUrl()).into(avatarImage);
 
     }
 
     @Subscribe
     public void userDetialChangeEvent(Account.UserDetailUpdatesEvent event) {
 
+        Picasso.with(activity).load(event.user.getAvatarUrl()).into(avatarImage);
 
-        //Todo: Update Avatar Url
         displayNameText.setText(event.user.getDisplayName());
     }
 

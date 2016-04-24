@@ -75,4 +75,42 @@ public class InMemoryMessagesServices extends BaseInMemoryService {
         postDelayed(response, 2000);
 
     }
+
+    @Subscribe
+    public void sendMessage(Messages.SendMessageRequest request) {
+        Messages.SendMessageResponse response = new Messages.SendMessageResponse();
+
+
+        if (request.getMessage().equals("error")) {
+            response.setOperationError("Something bad happened");
+        } else if (request.getMessage().equals("error-message")) {
+            response.setPropertyError("message", "Invalid message");
+        }
+
+
+
+        postDelayed(response, 1500, 3000);
+    }
+
+    @Subscribe
+    public void MardMessageAsRead(Messages.MardMessageAsReadRequest request) {
+        postDelayed(new Messages.MarkMessageAsReadResponse());
+    }
+
+    @Subscribe
+    public void getMessgeDetails(Messages.GetMessageDetailsRequest request) {
+        Messages.GetMessageDetailsRespons respons = new Messages.GetMessageDetailsRespons();
+
+        respons.message = new Message(
+                1,
+                Calendar.getInstance(),
+                "Short Message",
+                "Long Message",
+                null,
+                new UserDetails(1, true, "Display Name", "UserName", ""),
+                false,
+                false);
+
+        postDelayed(respons);
+    }
 }

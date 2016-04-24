@@ -6,19 +6,40 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/include_toolbar" />
 
-        <TextView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/include_toolbar">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/activity_main_recyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_main_newMessageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_action_camera" />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <include layout="@layout/include_main_nav_drawer" />
 

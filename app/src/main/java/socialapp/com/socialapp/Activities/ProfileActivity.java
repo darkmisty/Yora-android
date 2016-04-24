@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 
 import com.soundcloud.android.crop.Crop;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.List;
 import socialapp.com.socialapp.Dialogs.ChangePasswordDialog;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
-import socialapp.com.socialapp.Utilities.util;
+import socialapp.com.socialapp.Utilities.utils;
 import socialapp.com.socialapp.infrastructure.User;
 import socialapp.com.socialapp.views.MainNavDrawer;
 
@@ -85,14 +86,17 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
         tempOutputFile = new File(getExternalCacheDir(), "temp-img.jpg");
 
 
+
         avatarView.setOnClickListener(this);
         changeAvatarButton.setOnClickListener(this);
         avatarProgressFrame.setVisibility(View.GONE);
 
+        User user = application.getAuth().getUser();
+        getSupportActionBar().setTitle(user.getDisplayName());
+        Picasso.with(this).load(user.getAvatarUrl()).into(avatarView);
+
 
         if (savedState == null) {
-            User user = application.getAuth().getUser();
-            getSupportActionBar().setTitle(user.getDisplayName());
             displayNameText.setText(user.getDisplayName());
             emailText.setText(user.getEmail());
             changeState(STATE_VIEWING);
@@ -109,6 +113,7 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     @Subscribe
     public void userDetialChangeEvent(Account.UserDetailUpdatesEvent event) {
         getSupportActionBar().setTitle(event.user.getDisplayName());
+        Picasso.with(this).load(event.user.getAvatarUrl()).into(avatarView);
 
     }
 
@@ -178,12 +183,12 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
             //If we take it from the gallery
             if (data != null && (data.getAction() == null || data.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
                 outputFile = data.getData();
-                util.tmsg(this, "From Internal Storage");
+                utils.tmsg(this, "From Internal Storage");
 
                 //If we take it from camera
             } else {
                 outputFile = tempFileUri;
-                util.tmsg(this, "From Camera");
+                utils.tmsg(this, "From Camera");
 
             }
 

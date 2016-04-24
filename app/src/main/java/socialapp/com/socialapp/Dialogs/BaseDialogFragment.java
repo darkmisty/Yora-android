@@ -13,7 +13,7 @@ public class BaseDialogFragment extends DialogFragment {
 
     protected MyApplication application;
     protected Bus bus;
-    ActionScheduler scheduler;
+    protected ActionScheduler scheduler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

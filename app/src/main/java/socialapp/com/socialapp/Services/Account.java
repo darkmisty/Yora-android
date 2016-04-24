@@ -36,7 +36,7 @@ public class Account {
         }
     }
 
-    public static class LoginWithUsernameResponse extends UserResponse {
+    public static class LoginWithUsernameResponse extends ServiceResponse {
 
     }
 
@@ -121,6 +121,7 @@ public class Account {
     }
 
     public static class ChangeAvatarResponse extends ServiceResponse {
+        public String AvatarUrl;
     }
 
 
@@ -136,6 +137,8 @@ public class Account {
     }
 
     public static class UpdateProfileResponse extends ServiceResponse {
+        public String DisplayName;
+        public String Email;
 
     }
 
@@ -163,6 +166,18 @@ public class Account {
         public UserDetailUpdatesEvent(User user) {
             this.user = user;
         }
+    }
+
+    public static class UpdateGcmRegistrationRequest {
+        public String RegistrationId;
+
+        public UpdateGcmRegistrationRequest(String registrationId) {
+            RegistrationId = registrationId;
+        }
+    }
+
+    public static class UpdateGcmRegistrationResponse extends ServiceResponse {
+
     }
 
 
