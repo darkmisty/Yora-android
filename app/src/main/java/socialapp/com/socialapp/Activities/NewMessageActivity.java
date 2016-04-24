@@ -217,7 +217,7 @@ public class NewMessageActivity extends BaseAuthenticatedActivity implements Vie
 
             Message message = data.getParcelableExtra(SendMessageActivity.RESULT_MESSAGE);
 
-            Intent intent = new Intent();
+            Intent intent = new Intent(this, MessageActivity.class);
             intent.putExtra(MessageActivity.EXTRA_MESSAGE, message);
             startActivity(intent);
 

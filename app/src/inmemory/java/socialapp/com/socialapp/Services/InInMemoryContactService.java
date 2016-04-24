@@ -52,7 +52,7 @@ public class InInMemoryContactService extends BaseInMemoryService {
 
         if (request.UserId == 2) {
             Contacts.SendContactRequestResponse response = new Contacts.SendContactRequestResponse();
-            response.setOperationError("Something bad Happend");
+            response.setOperationError("Something bad happened");
             postDelayed(response);
         }
         postDelayed(new Contacts.SendContactRequestResponse());

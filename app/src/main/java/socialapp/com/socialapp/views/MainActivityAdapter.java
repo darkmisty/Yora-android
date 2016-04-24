@@ -17,7 +17,6 @@ import socialapp.com.socialapp.Services.entities.Message;
  * Created by SAMAR on 4/24/2016.
  */
 public class MainActivityAdapter extends RecyclerView.Adapter {
-
     private static final int VIEW_TYPE_MESSAGE = 1;
     private static final int VIEW_TYPE_CONTACT_REQUEST = 2;
     private static final int VIEW_TYPE_HEADER = 3;
@@ -36,23 +35,63 @@ public class MainActivityAdapter extends RecyclerView.Adapter {
         contactRequests = new ArrayList<>();
     }
 
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public List<ContactRequest> getContactRequests() {
+        return contactRequests;
+    }
+
+    @SuppressWarnings("UnusedAssignment")
+    @Override
+    public int getItemViewType(int position) {
+        if (contactRequests.size() > 0) {
+            if (position == 0) {
+                return VIEW_TYPE_HEADER;
+            }
+
+            position--;
+            if (position < contactRequests.size()) {
+                return VIEW_TYPE_CONTACT_REQUEST;
+            }
+
+            position -= contactRequests.size();
+        }
+
+        if (messages.size() > 0) {
+            if (position == 0) {
+                return VIEW_TYPE_HEADER;
+            }
+
+            position--;
+            if (position < messages.size()) {
+                return VIEW_TYPE_MESSAGE;
+            }
+
+            position -= contactRequests.size();
+        }
+
+        throw new IllegalArgumentException(
+                "We are being asked for an item type from position " + position + ", though we have no such item");
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_MESSAGE) {
             final MessageViewHolder viewHolder = new MessageViewHolder(inflater.inflate(R.layout.list_item_message, parent, false));
             viewHolder.getBackgroundView().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    listener.onMessageClicked((Message) v.getTag());
+                public void onClick(View view) {
+                    listener.onMessageClicked((Message) view.getTag());
                 }
             });
-
             return viewHolder;
         } else if (viewType == VIEW_TYPE_CONTACT_REQUEST) {
             final ContactRequestViewHolder viewHolder = new ContactRequestViewHolder(inflater, parent);
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View view) {
                     ContactRequest request = (ContactRequest) viewHolder.itemView.getTag();
                     listener.onContactRequestClicked(request, contactRequests.indexOf(request));
                 }
@@ -62,13 +101,11 @@ public class MainActivityAdapter extends RecyclerView.Adapter {
             return new HeaderViewHolder(inflater, parent);
         }
 
-        throw new IllegalArgumentException("ViewType " + viewType + "is not supported");
-
+        throw new IllegalArgumentException("ViewType " + viewType + " is not supported");
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
         if (holder instanceof ContactRequestViewHolder) {
             position--;
 
@@ -97,7 +134,6 @@ public class MainActivityAdapter extends RecyclerView.Adapter {
         } else {
             throw new IllegalArgumentException("Cannot populate holder of type " + holder.getClass().getName());
         }
-
     }
 
     @Override
@@ -115,51 +151,8 @@ public class MainActivityAdapter extends RecyclerView.Adapter {
         return count;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-
-        if (contactRequests.size() > 0) {
-            if (position == 0) {
-                return VIEW_TYPE_HEADER;
-            }
-
-            position--;
-
-            if (position < contactRequests.size()) {
-                return VIEW_TYPE_CONTACT_REQUEST;
-            }
-
-            position -= contactRequests.size();
-        }
-
-        if (messages.size() > 0) {
-            if (position == 0) {
-                return VIEW_TYPE_HEADER;
-            }
-
-            position--;
-            if (position < messages.size()) {
-                return VIEW_TYPE_MESSAGE;
-            }
-
-            position -= contactRequests.size();
-        }
-
-        throw new IllegalArgumentException("We are being asked for an item type " + position + ", through we have no such item");
-    }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public List<ContactRequest> getContactRequests() {
-        return contactRequests;
-    }
-
     public interface MainActivityListener {
-
         void onMessageClicked(Message message);
-
         void onContactRequestClicked(ContactRequest request, int position);
     }
 }
