@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Messages;
 import socialapp.com.socialapp.Services.entities.UserDetails;
-import socialapp.com.socialapp.Utilities.Utils;
+import socialapp.com.socialapp.Utilities.utils;
 
 /**
  * Created by SAMAR on 4/22/2016.
@@ -169,7 +169,7 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
         messageEditText.setError(null);
 
         if (request.getRecipient() == null) {
-            Utils.tmsg(this, "Please Select Recipient");
+            utils.tmsg(this, "Please Select Recipient");
             selectRecipient();
             return;
         }

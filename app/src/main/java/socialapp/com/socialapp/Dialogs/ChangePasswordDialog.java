@@ -11,7 +11,7 @@ import com.squareup.otto.Subscribe;
 
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
-import socialapp.com.socialapp.Utilities.Utils;
+import socialapp.com.socialapp.Utilities.utils;
 
 
 public class ChangePasswordDialog extends BaseDialogFragment implements View.OnClickListener {
@@ -69,7 +69,7 @@ public class ChangePasswordDialog extends BaseDialogFragment implements View.OnC
         progressDialog.dismiss();
         progressDialog = null;
         if (response.didSucceed()) {
-            Utils.tmsg(getActivity(), "Password Update");
+            utils.tmsg(getActivity(), "Password Update");
             dismiss();
             application.getAuth().getUser().setHasPassword(true);
             return;

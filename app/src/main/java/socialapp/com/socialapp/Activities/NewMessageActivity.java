@@ -20,7 +20,7 @@ import java.io.FileOutputStream;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.entities.Message;
 import socialapp.com.socialapp.Services.entities.UserDetails;
-import socialapp.com.socialapp.Utilities.Utils;
+import socialapp.com.socialapp.Utilities.utils;
 import socialapp.com.socialapp.views.CameraPreview;
 
 
@@ -121,7 +121,7 @@ public class NewMessageActivity extends BaseAuthenticatedActivity implements Vie
             camera = Camera.open(currentCameraIndex);
         } catch (Exception e) {
             Log.e(TAG, "Could not open camrea" + currentCameraIndex, e);
-            Utils.tmsg(this, "Error establishing camera!");
+            utils.tmsg(this, "Error establishing camera!");
             return;
         }
 
@@ -131,9 +131,9 @@ public class NewMessageActivity extends BaseAuthenticatedActivity implements Vie
         cameraPreview.setCamera(camera, cameraInfo);
 
         if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK){
-            Utils.tmsg(this, "Using Back Camera");
+            utils.tmsg(this, "Using Back Camera");
         } else {
-            Utils.tmsg(this, "Using Front Camera");
+            utils.tmsg(this, "Using Front Camera");
         }
     }
 
@@ -152,7 +152,7 @@ public class NewMessageActivity extends BaseAuthenticatedActivity implements Vie
             fileOutput.close();
         } catch (Exception e) {
             Log.e(TAG, "Could not save bitmap");
-            Utils.tmsg(this, "Could not save image to temp directory");
+            utils.tmsg(this, "Could not save image to temp directory");
             return;
         }
 

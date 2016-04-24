@@ -8,7 +8,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import socialapp.com.socialapp.Utilities.Utils;
+import socialapp.com.socialapp.Utilities.utils;
 
 public class ServiceResponse {
 
@@ -80,7 +80,7 @@ public class ServiceResponse {
             return;
 
         try {
-            Utils.tmsg((Activity) context, operationError);
+            utils.tmsg((Activity) context, operationError);
         } catch (Exception e) {
             Log.e(TAG, "Can't Create error Toast", e);
         }

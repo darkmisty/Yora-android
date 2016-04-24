@@ -4,16 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-/**
- * Created by SAMAR on 4/17/2016.
- */
 public class Message implements Parcelable {
-
     public static final Creator<Message> CREATOR = new Creator<Message>() {
         @Override
-        public Message createFromParcel(Parcel in) {
-            return new Message(in);
+        public Message createFromParcel(Parcel source) {
+            return new Message(source);
         }
 
         @Override
@@ -31,7 +28,15 @@ public class Message implements Parcelable {
     private boolean isRead;
     private boolean isSelected;
 
-    public Message(int id, Calendar createdAt, String shortMessage, String longMessage, String imageUrl, UserDetails otherUser, boolean isFromUs, boolean isRead) {
+    public Message(
+            int id,
+            Calendar createdAt,
+            String shortMessage,
+            String longMessage,
+            String imageUrl,
+            UserDetails otherUser,
+            boolean isFromUs,
+            boolean isRead) {
         this.id = id;
         this.createdAt = createdAt;
         this.shortMessage = shortMessage;
@@ -42,15 +47,33 @@ public class Message implements Parcelable {
         this.isRead = isRead;
     }
 
-    protected Message(Parcel in) {
+    private Message(Parcel in) {
         id = in.readInt();
+        createdAt = new GregorianCalendar();
+        createdAt.setTimeInMillis(in.readLong());
         shortMessage = in.readString();
         longMessage = in.readString();
         imageUrl = in.readString();
-        otherUser = in.readParcelable(UserDetails.class.getClassLoader());
-        isFromUs = in.readByte() != 0;
-        isRead = in.readByte() != 0;
-        isSelected = in.readByte() != 0;
+        otherUser = (UserDetails) in.readParcelable(UserDetails.class.getClassLoader());
+        isFromUs = in.readByte() == 1;
+        isRead = in.readByte() == 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeLong(createdAt.getTimeInMillis());
+        out.writeString(shortMessage);
+        out.writeString(longMessage);
+        out.writeString(imageUrl);
+        out.writeParcelable(otherUser, 0);
+        out.writeByte((byte) (isFromUs ? 1 : 0));
+        out.writeByte((byte) (isRead ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public int getId() {
@@ -85,32 +108,15 @@ public class Message implements Parcelable {
         return isRead;
     }
 
-    public void setRead(boolean read) {
-        isRead = read;
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
     }
 
     public boolean isSelected() {
         return isSelected;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(shortMessage);
-        dest.writeString(longMessage);
-        dest.writeString(imageUrl);
-        dest.writeParcelable(otherUser, flags);
-        dest.writeByte((byte) (isFromUs ? 1 : 0));
-        dest.writeByte((byte) (isRead ? 1 : 0));
-        dest.writeByte((byte) (isSelected ? 1 : 0));
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 }

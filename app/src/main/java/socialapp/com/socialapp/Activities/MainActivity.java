@@ -196,7 +196,6 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == REQUEST_SHOW_MESSAGE) {
             int messageId = data.getIntExtra(MessageActivity.RESULT_EXTRA_MESSAGE_ID, -1);
             if (messageId == -1) {
@@ -209,7 +208,7 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
                     if (resultCode == MessageActivity.REQUEST_IMAGE_DELETED) {
                         messages.remove(message);
                     } else {
-                        message.setRead(true);
+                        message.setIsRead(true);
                     }
 
                     adapter.notifyDataSetChanged();
