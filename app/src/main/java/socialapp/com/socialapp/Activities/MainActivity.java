@@ -2,6 +2,7 @@ package socialapp.com.socialapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,7 +25,6 @@ import socialapp.com.socialapp.views.MainNavDrawer;
 
 
 public class MainActivity extends BaseAuthenticatedActivity implements View.OnClickListener, MainActivityAdapter.MainActivityListener {
-
     private MainActivityAdapter adapter;
     private List<Message> messages;
     private List<ContactRequest> contactRequests;
@@ -44,14 +44,38 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerView);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        scheduler.invokeEveryMillisecond(new Runnable() {
-            @Override
-            public void run() {
-                onRefresh();
-            }
-        }, 1000 * 60 * 3); //1000 Millisecond * 60 Seconds * 3 Minute
+        if (isTablet) {
+
+            GridLayoutManager manager = new GridLayoutManager(this, 2);
+            recyclerView.setLayoutManager(manager);
+            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+
+                @Override
+                public int getSpanSize(int position) {
+                    if (position == 0) {
+                        return 2;
+                    }
+
+                    if (contactRequests.size() > 0 && position == contactRequests.size() + 1) {
+                        return 2;
+                    }
+
+                    return 1;
+                }
+            });
+
+        } else {
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            scheduler.invokeEveryMillisecond(new Runnable() {
+                @Override
+                public void run() {
+                    onRefresh();
+                }
+            }, 1000 * 60 * 3); //1000 Millisecond * 60 Seconds * 3 Minute
+        }
 
     }
 

@@ -110,7 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeRef
             swipeRefresh.setOnRefreshListener(this);
             swipeRefresh.setColorSchemeColors(
                     Color.parseColor("#ff00ddff"),
-                    Color.parseColor("ff99cc00"),
+                    Color.parseColor("#ff99cc00"),
                     Color.parseColor("#ffffbb33"),
                     Color.parseColor("#ffff4444")
             );
