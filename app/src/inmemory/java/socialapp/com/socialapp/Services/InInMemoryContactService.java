@@ -28,7 +28,7 @@ public class InInMemoryContactService extends BaseInMemoryService {
         response.Request = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            response.Request.add(new ContactRequest(i, request.FromUs, createFakeUser(i, false), new GregorianCalendar()));
+            response.Request.add(new ContactRequest(request.FromUs, createFakeUser(i, false), new GregorianCalendar()));
         }
 
         postDelayed(response);

@@ -41,17 +41,37 @@ public class PendingContactRequestsFragment extends BaseFragment {
 
 
     @Subscribe
-    public void onGetCotnactRequest(Contacts.GetContactRequestResponse response) {
-        response.showErrorToast(getActivity());
+    public void onGetCotnactRequest(final Contacts.GetContactRequestResponse response) {
 
-        progressFrame.animate().alpha(0).setDuration(250).withEndAction(new Runnable() {
+
+        scheduler.invokeOnResume(Contacts.GetContactRequestResponse.class, new Runnable() {
             @Override
             public void run() {
-                progressFrame.setVisibility(View.GONE);
-            }
-        }).start();
+                progressFrame.animate().alpha(0).setDuration(250).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressFrame.animate()
+                                .alpha(0)
+                                .setDuration(250)
+                                .withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressFrame.setVisibility(View.GONE);
+                                    }
+                                });
+                    }
+                }).start();
 
-        adapter.clear();
-        adapter.addAll(response.Request);
+                if (!response.didSucceed()) {
+                    response.showErrorToast(getActivity());
+                    return;
+                }
+
+                adapter.clear();
+                adapter.addAll(response.Request);
+            }
+        });
+
+
     }
 }

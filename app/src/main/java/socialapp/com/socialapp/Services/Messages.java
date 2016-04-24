@@ -42,6 +42,7 @@ public final class Messages {
         }
 
         public SearchMessagesRequest(boolean includeSendMessages, boolean includeReceivedMessages) {
+            FromContactId = -1;
             IncludeSendMessages = includeSendMessages;
             IncludeReceivedMessages = includeReceivedMessages;
         }
@@ -53,14 +54,25 @@ public final class Messages {
 
     public static class SendMessageRequest implements Parcelable {
 
+        public static final Creator<SendMessageRequest> CREATOR = new Creator<SendMessageRequest>() {
+            @Override
+            public SendMessageRequest createFromParcel(Parcel in) {
+                return new SendMessageRequest(in);
+            }
+
+            @Override
+            public SendMessageRequest[] newArray(int size) {
+                return new SendMessageRequest[size];
+            }
+        };
         private UserDetails recipient;
         private Uri imagePath;
         private String message;
 
+
         public SendMessageRequest () {
 
         }
-
 
         protected SendMessageRequest(Parcel in) {
             recipient = in.readParcelable(UserDetails.class.getClassLoader());
@@ -79,18 +91,6 @@ public final class Messages {
         public int describeContents() {
             return 0;
         }
-
-        public static final Creator<SendMessageRequest> CREATOR = new Creator<SendMessageRequest>() {
-            @Override
-            public SendMessageRequest createFromParcel(Parcel in) {
-                return new SendMessageRequest(in);
-            }
-
-            @Override
-            public SendMessageRequest[] newArray(int size) {
-                return new SendMessageRequest[size];
-            }
-        };
 
         public UserDetails getRecipient() {
             return recipient;
@@ -118,7 +118,33 @@ public final class Messages {
     }
 
     public static class SendMessageResponse extends ServiceResponse {
+        public Message message;
 
+    }
+
+    public static class MardMessageAsReadRequest {
+        public int MessageId;
+
+        public MardMessageAsReadRequest(int messageId) {
+            MessageId = messageId;
+        }
+    }
+
+    public static class MarkMessageAsReadResponse extends ServiceResponse {
+
+    }
+
+    public static class GetMessageDetailsRequest {
+        public int id;
+
+        public GetMessageDetailsRequest(int id) {
+            this.id = id;
+        }
+    }
+
+
+    public static class GetMessageDetailsRespons {
+        public Message message;
     }
 
 

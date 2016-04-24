@@ -91,4 +91,26 @@ public class InMemoryMessagesServices extends BaseInMemoryService {
 
         postDelayed(response, 1500, 3000);
     }
+
+    @Subscribe
+    public void MardMessageAsRead(Messages.MardMessageAsReadRequest request) {
+        postDelayed(new Messages.MarkMessageAsReadResponse());
+    }
+
+    @Subscribe
+    public void getMessgeDetails(Messages.GetMessageDetailsRequest request) {
+        Messages.GetMessageDetailsRespons respons = new Messages.GetMessageDetailsRespons();
+
+        respons.message = new Message(
+                1,
+                Calendar.getInstance(),
+                "Short Message",
+                "Long Message",
+                null,
+                new UserDetails(1, true, "Display Name", "UserName", ""),
+                false,
+                false);
+
+        postDelayed(respons);
+    }
 }

@@ -16,9 +16,9 @@ import android.widget.FrameLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URI;
 
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.Services.entities.Message;
 import socialapp.com.socialapp.Services.entities.UserDetails;
 import socialapp.com.socialapp.Utilities.Utils;
 import socialapp.com.socialapp.views.CameraPreview;
@@ -26,10 +26,9 @@ import socialapp.com.socialapp.views.CameraPreview;
 
 public class NewMessageActivity extends BaseAuthenticatedActivity implements View.OnClickListener, Camera.PictureCallback {
 
+    public static final String EXTRA_CONTACT = "EXTRA_CONTACT";
     private static final String TAG = "NewMessageActivity";
     private static final String STATE_CAMERA_INDEX = "STATE_CAMERA_INDEX";
-
-    public static final String EXTRA_CONTACT = "EXTRA_CONTACT";
     private static final int REQUEST_SEND_MESSAGE = 1;
 
     private Camera camera;
@@ -143,7 +142,7 @@ public class NewMessageActivity extends BaseAuthenticatedActivity implements Vie
         Bitmap bitmap = processBitmap(data);
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, output);
 
         File outputFile = new File(getCacheDir(), "temp-image");
         outputFile.delete();
@@ -215,6 +214,13 @@ public class NewMessageActivity extends BaseAuthenticatedActivity implements Vie
         if (requestCode == REQUEST_SEND_MESSAGE && resultCode == RESULT_OK) {
             setResult(RESULT_OK);
             finish();
+
+            Message message = data.getParcelableExtra(SendMessageActivity.RESULT_MESSAGE);
+
+            Intent intent = new Intent();
+            intent.putExtra(MessageActivity.EXTRA_MESSAGE, message);
+            startActivity(intent);
+
         }
     }
 }

@@ -30,8 +30,9 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
 
     public static final String EXTRA_IMAGE_PATH = "EXTRA_IMAGE_PATH";
     public static final String EXTRA_CONTACT = "EXTRA_CONTACT";
+    public static final String RESULT_MESSAGE = "RESULT_MESSAGE";
 
-    public static final int MAX_IMAGE_HEIGHT = 1280;
+    public static final int MAX_IMAGE_HEIGHT = 1000;
     private static final String STATE_REQUEST = "STATE_REQUEST";
     private static final int REQUEST_SELECT_RECIPIENT = 1;
 
@@ -59,7 +60,11 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
         Uri imageUri = getIntent().getParcelableExtra(EXTRA_IMAGE_PATH);
         if (imageUri != null) {
             ImageView image = (ImageView) findViewById(R.id.activity_send_message_image);
-            Picasso.with(this).load(imageUri).into(image);
+            Picasso picasso = Picasso.with(this);
+            picasso.invalidate(imageUri);
+            picasso.load(imageUri).into(image);
+
+            request.setImagePath(imageUri);
         }
 
         if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
@@ -193,7 +198,10 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
             return;
         }
 
-        setResult(RESULT_OK);
+        Intent i = new Intent();
+        i.putExtra(RESULT_MESSAGE, response.message);
+
+        setResult(RESULT_OK, i);
         finish();
     }
 }

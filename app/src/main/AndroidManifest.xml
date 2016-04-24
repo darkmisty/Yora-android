@@ -35,7 +35,11 @@
             android:theme="@style/AddContactTheme" />
 
         <activity android:name=".Activities.MessageActivity" />
-        <activity android:name=".Activities.NewMessageActivity" />
+
+        <activity
+            android:name=".Activities.NewMessageActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".Activities.SelectedContactActivity" />
         <activity android:name=".Activities.SendMessageActivity" />
 

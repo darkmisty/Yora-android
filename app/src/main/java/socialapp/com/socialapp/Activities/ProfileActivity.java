@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 
 import com.soundcloud.android.crop.Crop;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -85,14 +86,17 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
         tempOutputFile = new File(getExternalCacheDir(), "temp-img.jpg");
 
 
+
         avatarView.setOnClickListener(this);
         changeAvatarButton.setOnClickListener(this);
         avatarProgressFrame.setVisibility(View.GONE);
 
+        User user = application.getAuth().getUser();
+        getSupportActionBar().setTitle(user.getDisplayName());
+        Picasso.with(this).load(user.getAvatarUrl()).into(avatarView);
+
 
         if (savedState == null) {
-            User user = application.getAuth().getUser();
-            getSupportActionBar().setTitle(user.getDisplayName());
             displayNameText.setText(user.getDisplayName());
             emailText.setText(user.getEmail());
             changeState(STATE_VIEWING);
@@ -109,6 +113,7 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     @Subscribe
     public void userDetialChangeEvent(Account.UserDetailUpdatesEvent event) {
         getSupportActionBar().setTitle(event.user.getDisplayName());
+        Picasso.with(this).load(event.user.getAvatarUrl()).into(avatarView);
 
     }
 
