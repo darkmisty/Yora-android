@@ -8,12 +8,13 @@ import android.util.Log;
 
 import com.squareup.otto.Subscribe;
 
+import socialapp.com.socialapp.Fragments.RegisterGcmFragment;
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
 import socialapp.com.socialapp.Utilities.utils;
 import socialapp.com.socialapp.infrastructure.Auth;
 
-public class AuthenticationActivity extends BaseActivity {
+public class AuthenticationActivity extends BaseActivity implements RegisterGcmFragment.GcmRegistrationCallback{
 
     public static final String EXTRA_RETURN_TO_ACTIVITY = "extraReturnToActivity";
     private Auth auth;
@@ -51,6 +52,14 @@ public class AuthenticationActivity extends BaseActivity {
             return;
         }
 
+        RegisterGcmFragment.get(this, false, getFragmentManager());
+
+
+
+    }
+
+    @Override
+    public void gcmFinished() {
 
         Intent intent;
         String returnTo = getIntent().getStringExtra(EXTRA_RETURN_TO_ACTIVITY);
@@ -68,7 +77,6 @@ public class AuthenticationActivity extends BaseActivity {
 
         startActivity(intent);
         finish();
-
 
     }
 }
