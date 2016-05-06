@@ -12,6 +12,7 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -134,6 +135,9 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         shortMessage.setText(message.getShortMessage());
 
         if (message.getImageUrl() != null && !message.getImageUrl().isEmpty()) {
+            ImageView imageView = (ImageView) findViewById(R.id.activity_message_image);
+            application.getAuthPicasso().load(message.getImageUrl()).into(imageView);
+
         }
 
         invalidateOptionsMenu();

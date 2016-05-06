@@ -6,14 +6,14 @@ import android.os.Bundle;
 import com.squareup.otto.Bus;
 
 import socialapp.com.socialapp.infrastructure.ActionScheduler;
-import socialapp.com.socialapp.infrastructure.MyApplication;
+import socialapp.com.socialapp.infrastructure.YoraApplication;
 
 /**
  * Created by SAMAR on 2/20/2016.
  */
 public abstract class BaseFragment extends Fragment {
 
-    protected MyApplication application;
+    protected YoraApplication application;
     protected Bus bus;
     protected ActionScheduler scheduler;
 
@@ -21,7 +21,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        application = (MyApplication) getActivity().getApplication();
+        application = (YoraApplication) getActivity().getApplication();
         scheduler = new ActionScheduler(application);
 
         bus = application.getBus();

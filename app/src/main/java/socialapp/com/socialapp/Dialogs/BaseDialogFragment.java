@@ -6,19 +6,19 @@ import android.os.Bundle;
 import com.squareup.otto.Bus;
 
 import socialapp.com.socialapp.infrastructure.ActionScheduler;
-import socialapp.com.socialapp.infrastructure.MyApplication;
+import socialapp.com.socialapp.infrastructure.YoraApplication;
 
 
 public class BaseDialogFragment extends DialogFragment {
 
-    protected MyApplication application;
+    protected YoraApplication application;
     protected Bus bus;
     protected ActionScheduler scheduler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        application = (MyApplication) getActivity().getApplication();
+        application = (YoraApplication) getActivity().getApplication();
         scheduler = new ActionScheduler(application);
 
         bus = application.getBus();

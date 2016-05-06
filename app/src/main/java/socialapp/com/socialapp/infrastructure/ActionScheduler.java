@@ -10,13 +10,13 @@ import java.util.HashMap;
  */
 public class ActionScheduler {
 
-    private final MyApplication application;
+    private final YoraApplication application;
     private final Handler handler;
     private final ArrayList<TimedCallback> timedCallBacks;
     private final HashMap<Class, Runnable> onResumeAction;
     private boolean isPaused;
 
-    public ActionScheduler(MyApplication application) {
+    public ActionScheduler(YoraApplication application) {
         this.application = application;
         handler = new Handler();
         timedCallBacks = new ArrayList<>();

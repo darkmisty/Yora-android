@@ -15,7 +15,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#444444" />
+            android:background="#444444"
+            android:id="@+id/activity_message_image"
+            />
 
         <TextView
             android:id="@+id/activity_message_shortMessage"

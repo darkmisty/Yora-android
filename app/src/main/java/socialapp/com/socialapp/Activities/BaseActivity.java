@@ -15,13 +15,13 @@ import com.squareup.otto.Bus;
 
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.infrastructure.ActionScheduler;
-import socialapp.com.socialapp.infrastructure.MyApplication;
+import socialapp.com.socialapp.infrastructure.YoraApplication;
 import socialapp.com.socialapp.views.NavDrawer;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    protected MyApplication application;
+    protected YoraApplication application;
     protected Bus bus;
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeRef
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        application = (MyApplication) getApplication();
+        application = (YoraApplication) getApplication();
         bus = application.getBus();
         scheduler = new ActionScheduler(application);
 
@@ -173,7 +173,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeRef
         return toolbar;
     }
 
-    public MyApplication getMyApplication() {
+    public YoraApplication getMyApplication() {
         return application;
     }
 
