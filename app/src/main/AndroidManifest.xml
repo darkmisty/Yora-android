@@ -18,6 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <receiver android:name="receivers.NotificationReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            >
+            <intent-filter >
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="socialapp.com.socialapp" />
+            </intent-filter>
+
+        </receiver>
+
+
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

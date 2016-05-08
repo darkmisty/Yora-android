@@ -20,6 +20,7 @@ import com.squareup.otto.Subscribe;
 import java.util.GregorianCalendar;
 
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.Services.Events;
 import socialapp.com.socialapp.Services.Messages;
 import socialapp.com.socialapp.Services.entities.Message;
 import socialapp.com.socialapp.Services.entities.UserDetails;
@@ -244,6 +245,19 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         currentAnimation.setDuration(300);
         currentAnimation.play(translateAnimator).with(colorAnimator);
         currentAnimation.start();
+    }
+
+
+    @Subscribe
+    public void OnNotification(Events.OnNotificationReceivedEvent event) {
+
+        if (currentMessage == null){
+            return;
+        }
+
+        if (event.OperationType == Events.OPERATION_DELETED && event.EntityType == Events.ENTITY_MESSAGE && event.EntityId == currentMessage.getId()) {
+            closeMessage(REQUEST_IMAGE_DELETED);
+        }
     }
 
 

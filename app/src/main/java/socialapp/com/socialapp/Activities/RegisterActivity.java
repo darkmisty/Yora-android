@@ -1,5 +1,6 @@
 package socialapp.com.socialapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.squareup.otto.Subscribe;
+
+import java.security.PrivateKey;
 
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Account;
@@ -16,10 +19,19 @@ import socialapp.com.socialapp.Services.Account;
  */
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
+    public static final String EXTRA_EXTERNAL_PROVIDER = "EXTRA_EXTERNAL_PROVIDER";
+    public static final String EXTRA_EXTERNAL_USERNAME = "EXTRA_EXTERNAL_USERNAME";
+    public static final String EXTRA_EXTERNAL_TOKEN = "EXTRA_EXTERNAL_TOKEN";
+
     EditText passwordTxt, emailTxt, userNameTxt;
     Button registerBtn;
     View progressBar;
     private String defaultRegisterButtonText;
+
+
+    private boolean isExternalLogin;
+    private String externalToken;
+    private String externalProvider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +49,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         progressBar.setVisibility(View.GONE);
         defaultRegisterButtonText = registerBtn.getText().toString();
 
+
+        Intent intent = getIntent();
+        externalToken = intent.getStringExtra(EXTRA_EXTERNAL_TOKEN);
+        externalProvider = intent.getStringExtra(EXTRA_EXTERNAL_PROVIDER);
+        isExternalLogin = externalToken != null;
+
     }
 
     @Override
@@ -50,10 +68,21 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             emailTxt.setEnabled(false);
             passwordTxt.setEnabled(false);
 
-            bus.post(new Account.RegisterRequest(
-                    userNameTxt.getText().toString(),
-                    emailTxt.getText().toString(),
-                    passwordTxt.getText().toString()));
+
+            if (isExternalLogin) {
+                bus.post(new Account.RegisterWithExternalTokenRequest(
+                        userNameTxt.getText().toString(),
+                        emailTxt.getText().toString(),
+                        externalProvider,
+                        externalToken
+                        ));
+            } else {
+
+                bus.post(new Account.RegisterRequest(
+                        userNameTxt.getText().toString(),
+                        emailTxt.getText().toString(),
+                        passwordTxt.getText().toString()));
+            }
         }
     }
 
