@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -14,7 +16,10 @@ public class ServiceResponse {
 
     private static final String TAG = "ServiceResponse";
 
+    @SerializedName("operationError")
     private String operationError;
+
+    @SerializedName("propertyErrors")
     private HashMap<String, String> propertyError;
     private boolean isCritical;
     private TreeMap<String, String> propertyErrorCaseInSensitive;

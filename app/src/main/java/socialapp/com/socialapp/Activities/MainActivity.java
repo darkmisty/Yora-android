@@ -19,6 +19,7 @@ import java.util.List;
 
 import socialapp.com.socialapp.R;
 import socialapp.com.socialapp.Services.Contacts;
+import socialapp.com.socialapp.Services.Events;
 import socialapp.com.socialapp.Services.Messages;
 import socialapp.com.socialapp.Services.entities.ContactRequest;
 import socialapp.com.socialapp.Services.entities.Message;
@@ -216,5 +217,46 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
                 }
             }
         }
+    }
+
+    @Subscribe
+    public void onNotification(final Events.OnNotificationReceivedEvent event) {
+
+        scheduler.invokeOnResume(event.getClass(), new Runnable() {
+            @Override
+            public void run() {
+                if (event.EntityOwnerId == application.getAuth().getUser().getId()){
+                    return;
+                }
+
+                if (event.EntityType == Events.ENTITY_MESSAGE) {
+                    if (event.OperationType == Events.OPERATION_CREATED) {
+                        bus.post(new Messages.SearchMessagesRequest(false, true));
+                    } else {
+                        for (int i = 0; i < messages.size(); i++) {
+                            if (messages.get(i).getId() == event.EntityId) {
+                                messages.remove(i);
+                                adapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                    }
+                } else if (event.EntityType == Events.ENTITY_CONTACT_REQUEST) {
+                    if (event.OperationType == Events.OPERATION_CREATED) {
+                        bus.post(new Contacts.GetContactRequestsRequest(false));
+                    } else {
+                        for (int i = 0; i < contactRequests.size(); i++) {
+                            if (contactRequests.get(i).getUser().getId() == event.EntityId) {
+                                contactRequests.remove(i);
+                                adapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
     }
 }

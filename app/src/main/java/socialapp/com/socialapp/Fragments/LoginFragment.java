@@ -2,6 +2,7 @@ package socialapp.com.socialapp.Fragments;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +25,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private EditText txtUserName, txtPassword;
     private String defaultLoginButtonText = "";
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
+
 
 
     @Override
@@ -92,10 +91,22 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        if (context instanceof Activity) {
+//
+//            callbacks = (Callbacks) context;
+//        }
+//    }
+
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        callBacks = (CallBacks) activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Activity) {
+
+            callBacks = (CallBacks) context;
+        }
     }
 
     @Override

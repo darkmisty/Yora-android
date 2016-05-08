@@ -12,6 +12,7 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -19,6 +20,7 @@ import com.squareup.otto.Subscribe;
 import java.util.GregorianCalendar;
 
 import socialapp.com.socialapp.R;
+import socialapp.com.socialapp.Services.Events;
 import socialapp.com.socialapp.Services.Messages;
 import socialapp.com.socialapp.Services.entities.Message;
 import socialapp.com.socialapp.Services.entities.UserDetails;
@@ -134,6 +136,9 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         shortMessage.setText(message.getShortMessage());
 
         if (message.getImageUrl() != null && !message.getImageUrl().isEmpty()) {
+            ImageView imageView = (ImageView) findViewById(R.id.activity_message_image);
+            application.getAuthPicasso().load(message.getImageUrl()).into(imageView);
+
         }
 
         invalidateOptionsMenu();
@@ -240,6 +245,19 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         currentAnimation.setDuration(300);
         currentAnimation.play(translateAnimator).with(colorAnimator);
         currentAnimation.start();
+    }
+
+
+    @Subscribe
+    public void OnNotification(Events.OnNotificationReceivedEvent event) {
+
+        if (currentMessage == null){
+            return;
+        }
+
+        if (event.OperationType == Events.OPERATION_DELETED && event.EntityType == Events.ENTITY_MESSAGE && event.EntityId == currentMessage.getId()) {
+            closeMessage(REQUEST_IMAGE_DELETED);
+        }
     }
 
 

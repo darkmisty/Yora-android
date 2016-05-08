@@ -19,13 +19,14 @@
         >
 
 
+
         <fragment
             android:name="socialapp.com.socialapp.Fragments.LoginFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             tools:layout="@layout/fragment_login"
-
+            android:id="@+id/thisisid"
             />
 
 

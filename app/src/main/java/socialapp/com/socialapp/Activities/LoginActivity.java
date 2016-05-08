@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import socialapp.com.socialapp.Fragments.LoginFragment;
+import socialapp.com.socialapp.Fragments.RegisterGcmFragment;
 import socialapp.com.socialapp.R;
 
 
@@ -77,8 +78,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if (requestCode == REQUEST_NARROW_LOGIN ||
                 requestCode == REQUEST_REGISTER ||
                 requestCode == REQUEST_EXTERNAL_LOGIN)
-            finishLogin();
-
+            RegisterGcmFragment.get(new RegisterGcmFragment.GcmRegistrationCallback() {
+                @Override
+                public void gcmFinished() {
+                    finishLogin();
+                }
+            }, requestCode == REQUEST_REGISTER , getFragmentManager());
     }
 
     private void finishLogin() {
